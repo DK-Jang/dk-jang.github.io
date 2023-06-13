@@ -1,0 +1,112 @@
+- title: General Information
+  type: map
+  contents:
+    - name: Full Name
+      value: Deok-Kyeong (DK) Jang
+    - name: Date of Birth
+      value: 14th October 1991
+    - name: Nationality
+      value: South Korea
+    - name: Languages
+      value: Korean (native), English (Limited working proficiency)
+
+- title: Research Interests
+  type: list
+  contents:
+    - My research goal is to improve the quality of virtual character motion in computer graphics and AR/VR systems. I currently focus on the LiDAR based 3D motion capture/tracking, real-time motion stylization/characterization, and motion synthesis/control.
+
+- title: Education
+  type: time_table
+  contents:
+    - title: Ph.D. in Computer Graphics / Motion Computing Lab - KAIST
+      institution: Korea Advanced Institute of Science and Technology, South Korea
+      year: 2017 - 2022
+      description:
+        - <u>Advisor:</u> <a href="https://lava.kaist.ac.kr/?page_id=41">Prof. Sung-Hee Lee.</a>
+        - title: Research on
+          contents:
+            - Motion stylization and characterziation.
+            - Constructing motion manifold space.
+            - Motion synthesis and control.
+    
+    - title: M.S. in Computer Graphics / Motion Computing Lab - KAIST
+      institution: Korea Advanced Institute of Science and Technology, South Korea
+      year: 2015 - 2016
+      description:
+        - <u>Advisor:</u> Prof. Sung-Hee Lee.
+        - title: Research on
+          contents:
+            - Regresson-based landmark detection of human body.
+    
+    - title: B.S. in Physics and Mathematics - KAIST
+      institution: Korea Advanced Institute of Science and Technology, South Korea
+      year: 2009 - 2015
+      description:
+        - title: Research on
+          contents:
+            - Modeling the prey-predator system.
+
+- title: Work Experience
+  type: time_table
+  contents:
+    - title: CTO / Co-founder at movin (무빈 in Korean)
+      # institution: Institute for Advanced Study, Princeton University
+      year: 2023 - NOW
+      description:
+        - <b>Product:</b> 3D full-body motion capture solution using a single LiDAR.
+        - Constructing a high-quality dataset featuring diverse subjects, containing synchronized LiDAR point cloud and optical motion capture data for a wide range of actions.
+        - Developed real-time full-body motion capture framework based on a single LiDAR, incorporating global translation tracking.
+        # - title: Description 3.
+        #   contents:
+        #     - Sub-description 1.
+        #     - Sub-description 2.
+    
+    - title: Research Scientist Intern at Meta Reality Lab
+      institution: Gemini team, Meta Reality Labs, Redmond, WA, USA
+      year: 2022
+      description:
+        - <u>Manager:</u> Dr.Yuting Ye, Research Scientist.
+        - <u>Collaborators:</u>. Prof.Jungdam Won
+        - Research on motion characterization in real-time, enhancement of motion style transfer and retargeting with various input sensors.
+
+- title: Projects
+  type: time_table
+  contents:
+    - title: Motion tracking and characterization research for virtual avatars
+      institution: Meta Platforms Technologies
+      year: 2022 - 2023
+      description: As a researcher of the project, developed real-time motion characterization framework for virtual avatars.
+
+    - title: Study of styled motion generation for non-verbal communication of virtual human agents
+      institution: National Research Foundation of Korea
+      year: 2020 - 2022
+      description: As a leading researcher of the project, developed humanoid agent’s appearance-style customizable motion generation framework.
+    
+    - title: Development of 4D reconstruction and dynamic deformable action model based hyper realistic service technology
+      institution: National Research Foundation of Korea
+      year: 2017 - 2021
+      description: As a leading researcher of the project, developed humanoid agent’s appearance-style customizable motion generation framework.
+    
+    - title: Development of simulation software for human body-sport gear complex for rapidly prototyping customized sports gear
+      institution: Ministry of Culture, Sports and Tourism
+      year: 2015 - 2017
+      description: As a main developer of the project, developed an sports gear modeling technique that fits the personalized foot shape and sports gear interaction.
+
+- title: Paper Reviewer
+  type: list
+  contents:
+    - SIGGRAPH, SIGGRAPH ASIA, Pacific Graphics, Computer Graphics Forum, IEEE Transactions on Visualization and Computer Graphics (TVCG)
+
+- title: Technical Skills
+  type: list
+  contents:
+    - <b>Programming Languages:</b> Python, C#, C/C++, MATLAB
+    - <b>Operating Systems:</b> Mac OS, Linux, Windows
+    - <b>Frameworks & Libraries:</b> Pytorch, Tensorflow, Numpy, Eigen, igl, etc.
+    - <b>Tools:</b> Unity, Blender, Docker system, etc.
+
+- title: Other Interests
+  type: list
+  contents:
+    - <b>Sports:</b> Working out, Judo, Soccer, Swimming.
+    - <b>Hobbies:</b> Traveling, Watching movies, Playing games.
