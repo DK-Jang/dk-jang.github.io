@@ -3,7 +3,7 @@ layout: about
 title: about
 permalink: /
 # subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
-subtitle: <b>Co-founder & CTO</b> @ movin. PhD in Computer Graphics from KAIST.
+subtitle: <b>Co-founder & CTO</b> @ MOVIN. PhD in Computer Graphics from KAIST.
 
 profile:
   align: right
@@ -21,7 +21,7 @@ social: true  # includes social icons at the bottom of the page
 ---
 Hi there :smile:
 
-I'm a Co-founder & CTO at movin and a Postdoc in [Motion Computing Lab](https://lava.kaist.ac.kr) at [KAIST](https://www.kaist.ac.kr/en/). Before that, I interned at Meta Reality Labs.
+I'm a Co-founder & CTO at [MOVIN](https://www.movin3d.com) and a Postdoc in [Motion Computing Lab](https://lava.kaist.ac.kr) at [KAIST](https://www.kaist.ac.kr/en/). Before that, I interned at Meta Reality Labs.
 
 My research goal is to improve the quality of digital character motion in computer graphics and AR/VR systems using deep learning methods. 
 I currently focus on the real-time character motion characterization and 3D full-body motion capture using a single LiDAR.

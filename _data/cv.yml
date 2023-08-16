@@ -49,7 +49,7 @@
 - title: Work Experience
   type: time_table
   contents:
-    - title: CTO / Co-founder at movin (무빈 in Korean)
+    - title: CTO / Co-founder at MOVIN (무빈 in Korean)
       # institution: Institute for Advanced Study, Princeton University
       year: 2023 - NOW
       description:
@@ -60,6 +60,13 @@
         #   contents:
         #     - Sub-description 1.
         #     - Sub-description 2.
+  
+    - title: Postdoctoral Researcher at Motion Computing Lab
+      institution: KAIST, Daejeon, South Korea
+      year: 2023 - NOW
+      description:
+        - <u>Advisor:</u> Sung-Hee Lee.
+        - Research on LiDAR based real-time 3d motion capture and motion synthesis.
     
     - title: Research Scientist Intern at Meta Reality Lab
       institution: Gemini team, Meta Reality Labs, Redmond, WA, USA
