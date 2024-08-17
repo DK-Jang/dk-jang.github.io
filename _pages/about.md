@@ -21,10 +21,10 @@ social: true  # includes social icons at the bottom of the page
 ---
 Hi there :smile:
 
-I'm a Co-founder & CTO at [MOVIN](https://www.movin3d.com) and a Postdoc in [Motion Computing Lab](https://lava.kaist.ac.kr) at [KAIST](https://www.kaist.ac.kr/en/). Before that, I interned at Meta Reality Labs.
+I'm a Co-founder & CTO at [MOVIN](https://www.movin3d.com). Before that, I was a Postdoc in [Motion Computing Lab](https://lava.kaist.ac.kr) at [KAIST](https://www.kaist.ac.kr/en/) and interned at Meta Reality Labs.
 
 My research goal is to improve the quality of digital character motion in computer graphics and AR/VR systems using deep learning methods. 
-I currently focus on the real-time character motion characterization and 3D full-body motion capture using a single LiDAR.
+I currently focus on the 3D full-body markerless motion capture in real-time.
 
 I received a Ph.D. in Computer Graphics, from the KAIST, where I also completed my M.S. advised by Prof. [Sung-Hee Lee](https://lava.kaist.ac.kr/?page_id=41). I acquired a B.S. in Physics and Mathematics, from KAIST.
 

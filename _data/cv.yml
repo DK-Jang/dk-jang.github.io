@@ -4,11 +4,11 @@
     - name: Full Name
       value: Deok-Kyeong (DK) Jang
     - name: Date of Birth
-      value: 14th October 1991
+      value: 14th October
     - name: Nationality
       value: South Korea
     - name: Languages
-      value: Korean (native), English (Limited working proficiency)
+      value: Korean, English
 
 - title: Research Interests
   type: list
@@ -53,7 +53,7 @@
       # institution: Institute for Advanced Study, Princeton University
       year: 2023 - NOW
       description:
-        - <b>Product:</b> 3D full-body motion capture solution using a single LiDAR.
+        - <b>Product:</b> Real-time markerless full-body motion capture solution.
         - Constructing a high-quality dataset featuring diverse subjects, containing synchronized LiDAR point cloud and optical motion capture data for a wide range of actions.
         - Developed real-time full-body motion capture framework based on a single LiDAR, incorporating global translation tracking.
         # - title: Description 3.
@@ -63,7 +63,7 @@
   
     - title: Postdoctoral Researcher at Motion Computing Lab
       institution: KAIST, Daejeon, South Korea
-      year: 2023 - NOW
+      year: 2023
       description:
         - <u>Advisor:</u> Sung-Hee Lee.
         - Research on LiDAR based real-time 3d motion capture and motion synthesis.
