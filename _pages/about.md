@@ -7,7 +7,7 @@ subtitle: <b>Co-founder & CTO</b> @ MOVIN. PhD in Computer Graphics from KAIST.
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: prof_img.jpeg
   image_circular: false # crops the image to make it circular
   # address: >
   #   <p>555 your office number</p>
