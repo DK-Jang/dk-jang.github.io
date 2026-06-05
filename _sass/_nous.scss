@@ -1,0 +1,625 @@
+/*******************************************************************************
+ * NOUS-style redesign overlay
+ * A monospace, high-contrast dark theme inspired by nousresearch.com.
+ * Imported last in main.scss so it overrides the al-folio defaults.
+ ******************************************************************************/
+
+/* ---------------------------------------------------------------------------
+ * Design tokens
+ * ------------------------------------------------------------------------- */
+:root {
+  --nous-bg:            #000000;
+  --nous-bg-soft:       #0a0a0a;
+  --nous-bg-card:       #0d0d0d;
+  --nous-border:        rgba(255, 255, 255, 0.14);
+  --nous-border-soft:   rgba(255, 255, 255, 0.08);
+  --nous-text:          #ededed;
+  --nous-text-strong:   #ffffff;
+  --nous-text-muted:    #8a8a8a;
+  --nous-text-faint:    #5c5c5c;
+  --nous-accent:        #ffffff;
+
+  /* Re-map al-folio's global variables to the Nous palette so every
+     component that already uses them flips to dark/mono automatically. */
+  --global-bg-color:            var(--nous-bg);
+  --global-code-bg-color:       var(--nous-bg-card);
+  --global-text-color:          var(--nous-text);
+  --global-text-color-light:    var(--nous-text-muted);
+  --global-theme-color:         var(--nous-text-strong);
+  --global-hover-color:         var(--nous-text-strong);
+  --global-hover-text-color:    #000000;
+  --global-footer-bg-color:     var(--nous-bg);
+  --global-footer-text-color:   var(--nous-text-muted);
+  --global-footer-link-color:   var(--nous-text-strong);
+  --global-distill-app-color:   var(--nous-text-muted);
+  --global-divider-color:       var(--nous-border-soft);
+  --global-card-bg-color:       var(--nous-bg-card);
+}
+
+/* ---------------------------------------------------------------------------
+ * Typography & base
+ * ------------------------------------------------------------------------- */
+$nous-mono: "Geist Mono", "Roboto Mono", ui-monospace, "SF Mono", "Menlo", monospace;
+
+html,
+body {
+  background-color: var(--nous-bg) !important;
+  color: var(--nous-text);
+  font-family: $nous-mono;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  letter-spacing: 0.01em;
+}
+
+p, h1, h2, h3, h4, h5, h6, em, div, li, span, strong, a, td, th, label, blockquote, figcaption {
+  font-family: $nous-mono;
+}
+
+p, li {
+  color: var(--nous-text);
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--nous-text-strong);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+a {
+  color: var(--nous-text-strong);
+  text-decoration: none;
+  transition: opacity 0.15s ease, border-color 0.15s ease;
+  border-bottom: 1px solid transparent;
+
+  &:hover {
+    color: var(--nous-text-strong);
+    text-decoration: none;
+    border-bottom-color: var(--nous-text-strong);
+  }
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--nous-border-soft);
+  margin: 2rem 0;
+}
+
+::selection {
+  background: var(--nous-text-strong);
+  color: #000;
+}
+
+img,
+figure img {
+  filter: saturate(0.9);
+}
+
+/* Utility: uppercase wide-tracked label, the signature Nous detail */
+@mixin nous-label {
+  font-family: $nous-mono;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.7rem;
+  color: var(--nous-text-muted);
+  font-weight: 400;
+}
+
+/* ---------------------------------------------------------------------------
+ * Navbar
+ * ------------------------------------------------------------------------- */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.85) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--nous-border-soft);
+  box-shadow: none !important;
+
+  .navbar-brand,
+  .navbar-brand.title {
+    @include nous-label;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    color: var(--nous-text-strong) !important;
+
+    .font-weight-bold {
+      font-weight: 600;
+    }
+  }
+
+  .nav-item {
+    .nav-link {
+      @include nous-label;
+      font-size: 0.72rem !important;
+      color: var(--nous-text-muted) !important;
+      padding: 0.5rem 0.9rem !important;
+      transition: color 0.15s ease;
+
+      &:hover {
+        color: var(--nous-text-strong) !important;
+      }
+    }
+
+    &.active .nav-link {
+      color: var(--nous-text-strong) !important;
+    }
+
+    /* kill al-folio's underline-grow effect */
+    .nav-link::before,
+    .nav-link::after {
+      display: none !important;
+    }
+  }
+
+  .navbar-toggler {
+    border-color: var(--nous-border);
+    .icon-bar {
+      background-color: var(--nous-text) !important;
+    }
+  }
+
+  .dropdown-menu {
+    background-color: var(--nous-bg-card);
+    border: 1px solid var(--nous-border);
+    border-radius: 0;
+
+    .dropdown-item {
+      @include nous-label;
+      letter-spacing: 0.12em;
+      color: var(--nous-text-muted);
+      &:hover {
+        background-color: var(--nous-bg-soft);
+        color: var(--nous-text-strong);
+      }
+    }
+    .dropdown-divider {
+      border-color: var(--nous-border-soft);
+    }
+  }
+}
+
+/* Scroll progress bar */
+#progress {
+  background-color: transparent;
+  .progress-bar { background-color: var(--nous-text-strong); }
+}
+progress::-webkit-progress-value { background-color: var(--nous-text-strong); }
+progress::-moz-progress-bar { background-color: var(--nous-text-strong); }
+
+/* ---------------------------------------------------------------------------
+ * Footer
+ * ------------------------------------------------------------------------- */
+footer.fixed-bottom,
+footer.sticky-bottom {
+  background-color: var(--nous-bg) !important;
+  border-top: 1px solid var(--nous-border-soft);
+
+  .container {
+    @include nous-label;
+    letter-spacing: 0.1em;
+    font-size: 0.65rem;
+    color: var(--nous-text-faint);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  a {
+    color: var(--nous-text-muted);
+    &:hover { color: var(--nous-text-strong); }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * NOUS landing page (about layout)
+ * ------------------------------------------------------------------------- */
+.nous-landing {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Let the landing break out of al-folio's narrow 800px container */
+.container:has(.nous-landing) {
+  max-width: 1120px;
+}
+
+.nous-hero {
+  padding: 4.5rem 0 2.5rem;
+  border-bottom: 1px solid var(--nous-border-soft);
+
+  .nous-hero-meta {
+    @include nous-label;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .nous-hero-title {
+    font-size: clamp(2.6rem, 8vw, 5.2rem);
+    line-height: 0.98;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--nous-text-strong);
+    margin: 0 0 1.5rem;
+    text-transform: uppercase;
+  }
+
+  .nous-hero-sub {
+    @include nous-label;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    color: var(--nous-text-muted);
+    max-width: 60ch;
+    line-height: 1.9;
+  }
+}
+
+/* generic section heading: "// LABEL" style row with hairline */
+.nous-section {
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--nous-border-soft);
+
+  .nous-section-label {
+    @include nous-label;
+    display: block;
+    margin-bottom: 1.75rem;
+    padding-bottom: 0.75rem;
+  }
+}
+
+/* About block: bio text + portrait */
+.nous-about {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 3rem;
+  align-items: start;
+
+  .nous-about-body {
+    p { color: var(--nous-text); font-size: 0.95rem; line-height: 1.85; }
+    a { border-bottom: 1px solid var(--nous-border); &:hover { border-bottom-color: var(--nous-text-strong); } }
+  }
+
+  .nous-about-portrait {
+    img {
+      width: 100%;
+      border: 1px solid var(--nous-border);
+      border-radius: 0;
+      filter: grayscale(0.2) contrast(1.02);
+    }
+    figcaption { display: none; }
+  }
+}
+
+/* Three-column focus grid (mirrors Nous's commitment/research blocks) */
+.nous-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--nous-border-soft);
+  border: 1px solid var(--nous-border-soft);
+
+  .nous-cell {
+    background: var(--nous-bg);
+    padding: 1.75rem 1.5rem;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.2s ease;
+
+    &:hover { background: var(--nous-bg-soft); }
+
+    .nous-cell-idx {
+      @include nous-label;
+      font-size: 0.62rem;
+      margin-bottom: 1.25rem;
+    }
+    .nous-cell-title {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.95rem;
+      color: var(--nous-text-strong);
+      margin-bottom: 0.8rem;
+    }
+    .nous-cell-body {
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: var(--nous-text-muted);
+    }
+  }
+}
+
+/* Quick-link list: "→ LABEL" rows */
+.nous-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+
+  .nous-link-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--nous-border-soft);
+    @include nous-label;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    color: var(--nous-text-muted);
+    border-bottom-width: 1px;
+
+    .arrow { color: var(--nous-text-strong); }
+
+    &:hover {
+      color: var(--nous-text-strong);
+      .arrow { transform: translateX(3px); }
+    }
+    .arrow { display: inline-block; transition: transform 0.15s ease; }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * News list (used on landing + /news)
+ * ------------------------------------------------------------------------- */
+.news .table,
+.news table {
+  background: transparent !important;
+
+  td {
+    border: 0 !important;
+    border-bottom: 1px solid var(--nous-border-soft) !important;
+    padding: 0.85rem 0.5rem !important;
+    color: var(--nous-text);
+    font-size: 0.85rem;
+    vertical-align: top;
+    background: transparent !important;
+  }
+  td.date,
+  th.date {
+    @include nous-label;
+    font-size: 0.66rem;
+    color: var(--nous-text-faint);
+    white-space: nowrap;
+    width: 1%;
+    padding-right: 1.5rem !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Page header (publications / cv / projects etc.)
+ * ------------------------------------------------------------------------- */
+.post .post-header,
+.post-header {
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--nous-border-soft);
+
+  .post-title {
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--nous-text-strong);
+  }
+  .post-description,
+  .desc {
+    @include nous-label;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    line-height: 1.8;
+    margin-top: 0.5rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Publications (jekyll-scholar bibliography)
+ * ------------------------------------------------------------------------- */
+.publications {
+  h2.year {
+    @include nous-label;
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    color: var(--nous-text-strong);
+    border-bottom: 1px solid var(--nous-border);
+    padding: 2rem 0 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  ol.bibliography {
+    li {
+      border-bottom: 1px solid var(--nous-border-soft);
+      padding: 1.5rem 0;
+
+      .title {
+        color: var(--nous-text-strong);
+        font-weight: 500;
+        letter-spacing: 0.01em;
+      }
+      .author,
+      .periodical {
+        color: var(--nous-text-muted);
+        font-size: 0.85rem;
+      }
+      .author a {
+        border-bottom: 1px solid transparent;
+        &:hover { border-bottom-color: var(--nous-text-strong); }
+      }
+      a.abbr,
+      .abbr abbr {
+        background: transparent;
+      }
+    }
+  }
+
+  /* abbreviation / venue badge */
+  .abbr abbr,
+  span.abbr {
+    background-color: var(--nous-bg-card);
+    border: 1px solid var(--nous-border);
+    color: var(--nous-text-muted);
+    border-radius: 0;
+    a { color: var(--nous-text-muted); }
+  }
+
+  /* link buttons (Abs, PDF, arXiv, code, etc.) */
+  .links a.btn {
+    background-color: transparent !important;
+    border: 1px solid var(--nous-border) !important;
+    border-radius: 0 !important;
+    color: var(--nous-text-muted) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.62rem;
+    padding: 0.25rem 0.6rem;
+    transition: all 0.15s ease;
+
+    &:hover {
+      background-color: var(--nous-text-strong) !important;
+      color: #000 !important;
+      border-color: var(--nous-text-strong) !important;
+    }
+  }
+
+  .bibtex,
+  .hidden {
+    background-color: var(--nous-bg-card);
+  }
+
+  /* abstract / bibtex reveal box */
+  blockquote.abstract,
+  div.abstract,
+  .bibtex pre {
+    background-color: var(--nous-bg-card) !important;
+    border-left: 2px solid var(--nous-border) !important;
+    color: var(--nous-text-muted);
+    font-size: 0.82rem;
+  }
+}
+
+/* publication preview thumbnail */
+.preview {
+  border: 1px solid var(--nous-border-soft);
+  border-radius: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Cards (projects, repositories)
+ * ------------------------------------------------------------------------- */
+.card {
+  background-color: var(--nous-bg-card) !important;
+  border: 1px solid var(--nous-border-soft) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: var(--nous-border) !important;
+  }
+
+  .card-title,
+  h3 {
+    color: var(--nous-text-strong) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.95rem;
+  }
+  .card-text,
+  p {
+    color: var(--nous-text-muted) !important;
+    font-size: 0.82rem;
+  }
+  img { border-radius: 0; }
+}
+
+/* ---------------------------------------------------------------------------
+ * CV (time_table, lists, maps)
+ * ------------------------------------------------------------------------- */
+.cv {
+  .card {
+    background: transparent !important;
+    border: 1px solid var(--nous-border-soft) !important;
+  }
+  .card-body { background: transparent; }
+
+  /* table map (General Information) */
+  table.table {
+    th, td {
+      border-color: var(--nous-border-soft) !important;
+      color: var(--nous-text);
+      background: transparent !important;
+    }
+  }
+
+  /* time table vertical line + dots */
+  .timeline {
+    .line { background-color: var(--nous-border) !important; }
+    .dot,
+    .timeline-item::before { background-color: var(--nous-text-strong) !important; }
+  }
+  ul li::marker { color: var(--nous-text-faint); }
+}
+
+/* ---------------------------------------------------------------------------
+ * Social icons row
+ * ------------------------------------------------------------------------- */
+.social {
+  .contact-icons a {
+    color: var(--nous-text-muted);
+    border-bottom: 0;
+    margin: 0 0.4rem;
+    transition: color 0.15s ease;
+    &:hover { color: var(--nous-text-strong); }
+  }
+  .contact-note {
+    @include nous-label;
+    font-size: 0.68rem;
+    color: var(--nous-text-faint);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Misc al-folio overrides for dark coherence
+ * ------------------------------------------------------------------------- */
+.profile .address { color: var(--nous-text-muted); }
+
+code,
+pre,
+.highlight {
+  background-color: var(--nous-bg-card) !important;
+  border-radius: 0;
+  font-family: $nous-mono;
+}
+
+blockquote {
+  background: var(--nous-bg-soft);
+  border-left: 2px solid var(--nous-border);
+  color: var(--nous-text-muted);
+}
+
+/* pagination */
+.pagination {
+  .page-item .page-link {
+    background-color: transparent;
+    border-color: var(--nous-border-soft);
+    color: var(--nous-text-muted);
+    border-radius: 0;
+    &:hover { background-color: var(--nous-bg-soft); color: var(--nous-text-strong); }
+  }
+  .page-item.active .page-link {
+    background-color: var(--nous-text-strong);
+    border-color: var(--nous-text-strong);
+    color: #000;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Responsive
+ * ------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .nous-about { grid-template-columns: 1fr; }
+  .nous-about-portrait { max-width: 260px; }
+  .nous-grid { grid-template-columns: 1fr; }
+  .nous-links { grid-template-columns: 1fr; }
+  .nous-hero { padding-top: 3rem; }
+}
