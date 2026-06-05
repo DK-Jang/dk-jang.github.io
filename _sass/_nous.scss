@@ -462,16 +462,22 @@ footer.sticky-bottom {
     a { color: var(--nous-text-muted); }
   }
 
-  /* link buttons (Abs, PDF, arXiv, code, etc.) */
-  .links a.btn {
+  /* link buttons (Abs, PDF, arXiv, code, etc.) — MDB renders these as .badge.grey */
+  .links a.btn,
+  .links a.badge,
+  .links .badge,
+  a.abbr.badge {
     background-color: transparent !important;
+    background-image: none !important;
     border: 1px solid var(--nous-border) !important;
     border-radius: 0 !important;
     color: var(--nous-text-muted) !important;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-size: 0.62rem;
-    padding: 0.25rem 0.6rem;
+    font-weight: 400 !important;
+    padding: 0.3rem 0.65rem;
+    box-shadow: none !important;
     transition: all 0.15s ease;
 
     &:hover {
