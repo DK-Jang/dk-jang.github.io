@@ -1,621 +1,609 @@
 /*******************************************************************************
- * NOUS-style redesign overlay
- * A monospace, high-contrast dark theme inspired by nousresearch.com.
- * Imported last in main.scss so it overrides the al-folio defaults.
+ * HERMES-AGENT-style restyle overlay
+ * A light "paper" theme with electric-blue monochrome ink, typewriter mono
+ * body text and compressed display headings — inspired by
+ * hermes-agent.nousresearch.com. Imported last in main.scss.
  ******************************************************************************/
+
+/* ---------------------------------------------------------------------------
+ * Fonts
+ * Courier Prime  -> typewriter mono body (the Hermes body face)
+ * Oswald         -> compressed/condensed uppercase display headings
+ *                   (free Google substitute for "Rules Compressed")
+ * ------------------------------------------------------------------------- */
+$hermes-mono:    "Courier Prime", "Courier New", ui-monospace, monospace;
+$hermes-display: "Oswald", "Courier Prime", sans-serif;
 
 /* ---------------------------------------------------------------------------
  * Design tokens
  * ------------------------------------------------------------------------- */
 :root {
-  --nous-bg:            #000000;
-  --nous-bg-soft:       #0a0a0a;
-  --nous-bg-card:       #0d0d0d;
-  --nous-border:        rgba(255, 255, 255, 0.14);
-  --nous-border-soft:   rgba(255, 255, 255, 0.08);
-  --nous-text:          #ededed;
-  --nous-text-strong:   #ffffff;
-  --nous-text-muted:    #8a8a8a;
-  --nous-text-faint:    #5c5c5c;
-  --nous-accent:        #ffffff;
+  --h-ink:           #0000f2;            /* electric blue — primary ink */
+  --h-ink-soft:      #0000f2cc;
+  --h-ink-faint:     #0000f266;
+  --h-ink-ghost:     #0000f21a;          /* hairline borders */
+  --h-ink-wash:      #0000f20d;          /* hover wash */
+  --h-paper:         #eef3fb;            /* paper-white w/ blue tint */
+  --h-paper-2:       #e6eefaf2;          /* panels */
+  --h-paper-3:       #dbe6f7;            /* command blocks */
+  --h-accent:        #edff45;            /* acid-yellow secondary accent */
+  --h-border:        #0000f233;          /* visible grid lines */
 
-  /* Re-map al-folio's global variables to the Nous palette so every
-     component that already uses them flips to dark/mono automatically. */
-  --global-bg-color:            var(--nous-bg);
-  --global-code-bg-color:       var(--nous-bg-card);
-  --global-text-color:          var(--nous-text);
-  --global-text-color-light:    var(--nous-text-muted);
-  --global-theme-color:         var(--nous-text-strong);
-  --global-hover-color:         var(--nous-text-strong);
-  --global-hover-text-color:    #000000;
-  --global-footer-bg-color:     var(--nous-bg);
-  --global-footer-text-color:   var(--nous-text-muted);
-  --global-footer-link-color:   var(--nous-text-strong);
-  --global-distill-app-color:   var(--nous-text-muted);
-  --global-divider-color:       var(--nous-border-soft);
-  --global-card-bg-color:       var(--nous-bg-card);
+  /* Re-map al-folio's globals to the Hermes palette */
+  --global-bg-color:            var(--h-paper);
+  --global-code-bg-color:       var(--h-paper-3);
+  --global-text-color:          var(--h-ink);
+  --global-text-color-light:    var(--h-ink-soft);
+  --global-theme-color:         var(--h-ink);
+  --global-hover-color:         var(--h-ink);
+  --global-hover-text-color:    var(--h-paper);
+  --global-footer-bg-color:     var(--h-paper);
+  --global-footer-text-color:   var(--h-ink-soft);
+  --global-footer-link-color:   var(--h-ink);
+  --global-distill-app-color:   var(--h-ink-soft);
+  --global-divider-color:       var(--h-border);
+  --global-card-bg-color:       var(--h-paper-2);
 }
 
 /* ---------------------------------------------------------------------------
- * Typography & base
+ * Base
  * ------------------------------------------------------------------------- */
-$nous-mono: "Geist Mono", "Roboto Mono", ui-monospace, "SF Mono", "Menlo", monospace;
-
 html,
 body {
-  background-color: var(--nous-bg) !important;
-  color: var(--nous-text);
-  font-family: $nous-mono;
+  background-color: var(--h-paper) !important;
+  color: var(--h-ink);
+  font-family: $hermes-mono;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-body {
-  letter-spacing: 0.01em;
+/* faint engraving-style texture wash, like the Hermes background plate */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 75% 30%, #ffffff66 0%, transparent 55%),
+    repeating-linear-gradient(0deg, transparent 0 3px, #0000f208 3px 4px);
+  opacity: 0.5;
 }
 
-p, h1, h2, h3, h4, h5, h6, em, div, li, span, strong, a, td, th, label, blockquote, figcaption {
-  font-family: $nous-mono;
+p, li, td, th, span, em, strong, blockquote, figcaption, label, a, div {
+  font-family: $hermes-mono;
 }
 
 p, li {
-  color: var(--nous-text);
-  line-height: 1.7;
+  color: var(--h-ink);
+  line-height: 1.65;
+  font-size: 0.92rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--nous-text-strong);
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  font-family: $hermes-display;
+  color: var(--h-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
 }
 
 a {
-  color: var(--nous-text-strong);
+  color: var(--h-ink);
   text-decoration: none;
-  transition: opacity 0.15s ease, border-color 0.15s ease;
   border-bottom: 1px solid transparent;
+  transition: background 0.12s ease, border-color 0.12s ease;
 
   &:hover {
-    color: var(--nous-text-strong);
+    color: var(--h-ink);
     text-decoration: none;
-    border-bottom-color: var(--nous-text-strong);
+    border-bottom-color: var(--h-ink);
   }
 }
 
 hr {
   border: 0;
-  border-top: 1px solid var(--nous-border-soft);
-  margin: 2rem 0;
+  border-top: 1px solid var(--h-border);
+  margin: 0;
 }
 
-::selection {
-  background: var(--nous-text-strong);
-  color: #000;
-}
+::selection { background: var(--h-ink); color: var(--h-paper); }
 
+/* duotone-blue treatment for all photographic images, like Hermes plates */
 img,
 figure img {
-  filter: saturate(0.9);
+  filter: grayscale(1) brightness(1.35) contrast(0.9) sepia(1) hue-rotate(190deg) saturate(4.5);
+  mix-blend-mode: multiply;
 }
 
-/* Utility: uppercase wide-tracked label, the signature Nous detail */
-@mixin nous-label {
-  font-family: $nous-mono;
+/* signature wide-tracked uppercase label */
+@mixin h-label {
+  font-family: $hermes-display;
   text-transform: uppercase;
   letter-spacing: 0.22em;
-  font-size: 0.7rem;
-  color: var(--nous-text-muted);
-  font-weight: 400;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--h-ink-soft);
 }
 
 /* ---------------------------------------------------------------------------
- * Navbar
+ * Navbar — cell-divided grid like the Hermes top bar
  * ------------------------------------------------------------------------- */
 .navbar {
-  background-color: rgba(0, 0, 0, 0.85) !important;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--nous-border-soft);
+  background-color: var(--h-paper) !important;
+  backdrop-filter: none;
+  border-bottom: 1px solid var(--h-border);
   box-shadow: none !important;
+  padding: 0 !important;
+
+  .container {
+    border-left: 1px solid var(--h-border);
+    border-right: 1px solid var(--h-border);
+  }
 
   .navbar-brand,
   .navbar-brand.title {
-    @include nous-label;
-    font-size: 0.8rem;
-    letter-spacing: 0.18em;
-    color: var(--nous-text-strong) !important;
+    font-family: $hermes-display !important;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    font-size: 1.4rem !important;
+    line-height: 0.95;
+    color: var(--h-ink) !important;
+    padding: 1rem 1.25rem;
+    border-right: 1px solid var(--h-border);
 
-    .font-weight-bold {
-      font-weight: 600;
-    }
+    .font-weight-bold { font-weight: 700; }
   }
 
   .nav-item {
+    border-right: 1px solid var(--h-border);
+
     .nav-link {
-      @include nous-label;
-      font-size: 0.72rem !important;
-      color: var(--nous-text-muted) !important;
-      padding: 0.5rem 0.9rem !important;
-      transition: color 0.15s ease;
+      @include h-label;
+      font-size: 0.74rem !important;
+      color: var(--h-ink) !important;
+      padding: 1.4rem 1.5rem !important;
+      transition: background 0.12s ease;
 
-      &:hover {
-        color: var(--nous-text-strong) !important;
-      }
+      &:hover { background: var(--h-ink-wash); }
     }
+    &.active .nav-link { background: var(--h-ink-wash); }
 
-    &.active .nav-link {
-      color: var(--nous-text-strong) !important;
-    }
-
-    /* kill al-folio's underline-grow effect */
     .nav-link::before,
-    .nav-link::after {
-      display: none !important;
-    }
+    .nav-link::after { display: none !important; }
   }
 
   .navbar-toggler {
-    border-color: var(--nous-border);
-    .icon-bar {
-      background-color: var(--nous-text) !important;
-    }
+    border-color: var(--h-border);
+    margin-right: 1rem;
+    .icon-bar { background-color: var(--h-ink) !important; }
   }
 
   .dropdown-menu {
-    background-color: var(--nous-bg-card);
-    border: 1px solid var(--nous-border);
+    background-color: var(--h-paper);
+    border: 1px solid var(--h-border);
     border-radius: 0;
-
     .dropdown-item {
-      @include nous-label;
+      @include h-label;
       letter-spacing: 0.12em;
-      color: var(--nous-text-muted);
-      &:hover {
-        background-color: var(--nous-bg-soft);
-        color: var(--nous-text-strong);
-      }
+      color: var(--h-ink);
+      &:hover { background-color: var(--h-ink-wash); color: var(--h-ink); }
     }
-    .dropdown-divider {
-      border-color: var(--nous-border-soft);
-    }
+    .dropdown-divider { border-color: var(--h-border); }
   }
 }
 
-/* Scroll progress bar */
-#progress {
-  background-color: transparent;
-  .progress-bar { background-color: var(--nous-text-strong); }
-}
-progress::-webkit-progress-value { background-color: var(--nous-text-strong); }
-progress::-moz-progress-bar { background-color: var(--nous-text-strong); }
+#progress { background-color: transparent;
+  .progress-bar { background-color: var(--h-ink); } }
+progress::-webkit-progress-value { background-color: var(--h-ink); }
+progress::-moz-progress-bar { background-color: var(--h-ink); }
 
 /* ---------------------------------------------------------------------------
- * Footer
+ * Footer — cell-divided meta row
  * ------------------------------------------------------------------------- */
 footer.fixed-bottom,
 footer.sticky-bottom {
-  background-color: var(--nous-bg) !important;
-  border-top: 1px solid var(--nous-border-soft);
+  background-color: var(--h-paper) !important;
+  border-top: 1px solid var(--h-border);
 
   .container {
-    @include nous-label;
-    letter-spacing: 0.1em;
-    font-size: 0.65rem;
-    color: var(--nous-text-faint);
+    @include h-label;
+    letter-spacing: 0.12em;
+    font-size: 0.66rem;
+    color: var(--h-ink-soft);
     padding-top: 1rem;
     padding-bottom: 1rem;
+    border-left: 1px solid var(--h-border);
+    border-right: 1px solid var(--h-border);
   }
-  a {
-    color: var(--nous-text-muted);
-    &:hover { color: var(--nous-text-strong); }
-  }
+  a { color: var(--h-ink); border-bottom: 0;
+    &:hover { border-bottom: 1px solid var(--h-ink); } }
 }
 
-/* ---------------------------------------------------------------------------
- * NOUS landing page (about layout)
- * ------------------------------------------------------------------------- */
-.nous-landing {
-  max-width: 1080px;
+/* ===========================================================================
+ * HERMES landing page (about layout)
+ * ======================================================================== */
+.hermes-landing {
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  border-left: 1px solid var(--h-border);
+  border-right: 1px solid var(--h-border);
 }
+.container:has(.hermes-landing) { max-width: 1100px; padding: 0; }
 
-/* Let the landing break out of al-folio's narrow 800px container */
-.container:has(.nous-landing) {
-  max-width: 1120px;
-}
+/* HERO ------------------------------------------------------------------- */
+.hermes-hero {
+  text-align: center;
+  padding: 4.5rem 1.5rem 3.5rem;
+  border-bottom: 1px solid var(--h-border);
 
-.nous-hero {
-  padding: 4.5rem 0 2.5rem;
-  border-bottom: 1px solid var(--nous-border-soft);
-
-  .nous-hero-meta {
-    @include nous-label;
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    margin-bottom: 2.5rem;
+  .hermes-eyebrow {
+    @include h-label;
+    letter-spacing: 0.3em;
+    font-size: 0.74rem;
+    display: block;
+    margin-bottom: 1.5rem;
   }
-
-  .nous-hero-title {
-    font-size: clamp(2.6rem, 8vw, 5.2rem);
-    line-height: 0.98;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    color: var(--nous-text-strong);
-    margin: 0 0 1.5rem;
+  .hermes-hero-title {
+    font-family: $hermes-display;
+    font-weight: 700;
     text-transform: uppercase;
+    font-size: clamp(2.6rem, 7vw, 5.5rem);
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+    margin: 0 auto 1.5rem;
+    max-width: 16ch;
+    color: var(--h-ink);
   }
-
-  .nous-hero-sub {
-    @include nous-label;
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    color: var(--nous-text-muted);
+  .hermes-hero-sub {
+    font-family: $hermes-mono;
+    color: var(--h-ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.7;
     max-width: 60ch;
-    line-height: 1.9;
+    margin: 0 auto;
   }
 }
 
-/* generic section heading: "// LABEL" style row with hairline */
-.nous-section {
-  padding: 3rem 0;
-  border-bottom: 1px solid var(--nous-border-soft);
+/* numbered "1. INSTALL"-style command blocks reused for contact/links */
+.hermes-cmd-wrap { padding: 2.5rem 1.5rem; border-bottom: 1px solid var(--h-border); max-width: 720px; margin: 0 auto; }
+.hermes-cmd {
+  margin-bottom: 1.5rem;
+  .hermes-cmd-label { @include h-label; letter-spacing: 0.14em; font-size: 0.72rem; margin-bottom: 0.5rem; display: block; }
+  .hermes-cmd-box {
+    border: 1px solid var(--h-border);
+    background: var(--h-paper-2);
+    padding: 0.7rem 0.9rem;
+    font-family: $hermes-mono;
+    font-size: 0.85rem;
+    color: var(--h-ink);
+    a { border-bottom: 0; }
+  }
+}
 
-  .nous-section-label {
-    @include nous-label;
+/* generic section with label header */
+.hermes-section {
+  padding: 2.75rem 1.5rem;
+  border-bottom: 1px solid var(--h-border);
+
+  .hermes-section-label {
+    font-family: $hermes-display;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--h-ink);
     display: block;
     margin-bottom: 1.75rem;
-    padding-bottom: 0.75rem;
+    a { border-bottom: 0; }
   }
 }
 
-/* About block: bio text + portrait */
-.nous-about {
+/* ABOUT: bio + duotone portrait */
+.hermes-about {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 3rem;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 2.5rem;
   align-items: start;
 
-  .nous-about-body {
-    p { color: var(--nous-text); font-size: 0.95rem; line-height: 1.85; }
-    a { border-bottom: 1px solid var(--nous-border); &:hover { border-bottom-color: var(--nous-text-strong); } }
+  .hermes-about-body {
+    p { color: var(--h-ink); font-size: 0.92rem; line-height: 1.75; }
+    a { border-bottom: 1px solid var(--h-ink-faint); &:hover { border-bottom-color: var(--h-ink); } }
   }
-
-  .nous-about-portrait {
-    img {
-      width: 100%;
-      border: 1px solid var(--nous-border);
-      border-radius: 0;
-      filter: grayscale(0.2) contrast(1.02);
-    }
-    figcaption { display: none; }
+  .hermes-about-portrait img {
+    width: 100%;
+    border: 1px solid var(--h-border);
+    border-radius: 0;
   }
+  .hermes-about-portrait figcaption { display: none; }
 }
 
-/* Three-column focus grid (mirrors Nous's commitment/research blocks) */
-.nous-grid {
+/* FEATURE GRID: 3 columns divided by thin blue lines */
+.hermes-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--nous-border-soft);
-  border: 1px solid var(--nous-border-soft);
+  border-top: 1px solid var(--h-border);
+  border-left: 1px solid var(--h-border);
 
-  .nous-cell {
-    background: var(--nous-bg);
-    padding: 1.75rem 1.5rem;
-    min-height: 180px;
-    display: flex;
-    flex-direction: column;
-    transition: background 0.2s ease;
+  .hermes-cell {
+    border-right: 1px solid var(--h-border);
+    border-bottom: 1px solid var(--h-border);
+    padding: 1.5rem 1.4rem;
+    min-height: 150px;
+    transition: background 0.15s ease;
 
-    &:hover { background: var(--nous-bg-soft); }
+    &:hover { background: var(--h-ink-wash); }
 
-    .nous-cell-idx {
-      @include nous-label;
-      font-size: 0.62rem;
-      margin-bottom: 1.25rem;
-    }
-    .nous-cell-title {
+    .hermes-cell-title {
+      font-family: $hermes-display;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      font-size: 0.95rem;
-      color: var(--nous-text-strong);
-      margin-bottom: 0.8rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--h-ink);
+      margin-bottom: 0.7rem;
     }
-    .nous-cell-body {
-      font-size: 0.82rem;
-      line-height: 1.7;
-      color: var(--nous-text-muted);
+    .hermes-cell-body {
+      font-family: $hermes-mono;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--h-ink-soft);
     }
   }
 }
 
-/* Quick-link list: "→ LABEL" rows */
-.nous-links {
+/* NODES / quick links: "→ LABEL" rows in a 2-col grid divided by lines */
+.hermes-links {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0;
+  border-top: 1px solid var(--h-border);
+  border-left: 1px solid var(--h-border);
 
-  .nous-link-row {
+  .hermes-link-row {
     display: flex;
     align-items: baseline;
     gap: 0.6rem;
-    padding: 0.9rem 0;
-    border-bottom: 1px solid var(--nous-border-soft);
-    @include nous-label;
-    font-size: 0.78rem;
+    padding: 0.95rem 1.2rem;
+    border-right: 1px solid var(--h-border);
+    border-bottom: 1px solid var(--h-border);
+    font-family: $hermes-display;
+    text-transform: uppercase;
     letter-spacing: 0.14em;
-    color: var(--nous-text-muted);
-    border-bottom-width: 1px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--h-ink);
 
-    .arrow { color: var(--nous-text-strong); }
-
-    &:hover {
-      color: var(--nous-text-strong);
-      .arrow { transform: translateX(3px); }
-    }
-    .arrow { display: inline-block; transition: transform 0.15s ease; }
+    .arrow { color: var(--h-ink); display: inline-block; transition: transform 0.12s ease; }
+    &:hover { background: var(--h-ink-wash); .arrow { transform: translateX(3px); } }
   }
 }
 
 /* ---------------------------------------------------------------------------
- * News list (used on landing + /news)
+ * News list
  * ------------------------------------------------------------------------- */
 .news .table,
 .news table {
   background: transparent !important;
-
   td {
     border: 0 !important;
-    border-bottom: 1px solid var(--nous-border-soft) !important;
-    padding: 0.85rem 0.5rem !important;
-    color: var(--nous-text);
+    border-bottom: 1px solid var(--h-border) !important;
+    padding: 0.8rem 0.5rem !important;
+    color: var(--h-ink);
     font-size: 0.85rem;
     vertical-align: top;
     background: transparent !important;
   }
-  td.date,
-  th.date {
-    @include nous-label;
+  td.date, th.date {
+    @include h-label;
     font-size: 0.66rem;
-    color: var(--nous-text-faint);
+    color: var(--h-ink-faint);
     white-space: nowrap;
     width: 1%;
-    padding-right: 1.5rem !important;
+    padding-right: 1.4rem !important;
   }
 }
 
 /* ---------------------------------------------------------------------------
- * Page header (publications / cv / projects etc.)
+ * Page header (publications / cv / projects)
  * ------------------------------------------------------------------------- */
 .post .post-header,
 .post-header {
-  padding-bottom: 1.5rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid var(--nous-border-soft);
+  padding: 2rem 0 1.25rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--h-border);
 
   .post-title {
+    font-family: $hermes-display;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    font-weight: 600;
-    font-size: clamp(2rem, 5vw, 3rem);
-    color: var(--nous-text-strong);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--h-ink);
   }
-  .post-description,
-  .desc {
-    @include nous-label;
+  .post-description, .desc {
+    @include h-label;
     font-size: 0.78rem;
-    letter-spacing: 0.12em;
-    line-height: 1.8;
+    letter-spacing: 0.1em;
+    line-height: 1.7;
     margin-top: 0.5rem;
+    a { border-bottom: 1px solid var(--h-ink-faint); }
   }
 }
 
 /* ---------------------------------------------------------------------------
- * Publications (jekyll-scholar bibliography)
+ * Publications (jekyll-scholar)
  * ------------------------------------------------------------------------- */
 .publications {
   h2.year {
-    @include nous-label;
-    font-size: 1.4rem;
-    letter-spacing: 0.1em;
-    color: var(--nous-text-strong);
-    border-bottom: 1px solid var(--nous-border);
-    padding: 2rem 0 0.75rem;
+    font-family: $hermes-display;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--h-ink);
+    text-align: right;
+    border-bottom: 1px solid var(--h-border);
+    padding: 1.75rem 0 0.5rem;
     margin-bottom: 1rem;
   }
 
   ol.bibliography {
     li {
-      border-bottom: 1px solid var(--nous-border-soft);
-      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--h-border);
+      padding: 1.4rem 0;
 
       .title {
-        color: var(--nous-text-strong);
-        font-weight: 500;
+        font-family: $hermes-display;
+        text-transform: none;
         letter-spacing: 0.01em;
+        color: var(--h-ink);
+        font-weight: 600;
+        font-size: 1.05rem;
       }
-      .author,
-      .periodical {
-        color: var(--nous-text-muted);
-        font-size: 0.85rem;
+      .author, .periodical {
+        color: var(--h-ink-soft);
+        font-size: 0.84rem;
       }
-      .author a {
-        border-bottom: 1px solid transparent;
-        &:hover { border-bottom-color: var(--nous-text-strong); }
-      }
-      a.abbr,
-      .abbr abbr {
-        background: transparent;
-      }
+      .author a { border-bottom: 1px solid transparent; &:hover { border-bottom-color: var(--h-ink); } }
     }
   }
 
-  /* abbreviation / venue badge */
-  .abbr abbr,
-  span.abbr {
-    background-color: var(--nous-bg-card);
-    border: 1px solid var(--nous-border);
-    color: var(--nous-text-muted);
+  /* venue abbreviation badge */
+  .abbr abbr, span.abbr, a.abbr {
+    background-color: var(--h-ink);
+    color: var(--h-paper);
     border-radius: 0;
-    a { color: var(--nous-text-muted); }
+    padding: 0.1rem 0.4rem;
+    font-family: $hermes-display;
+    letter-spacing: 0.06em;
+    a { color: var(--h-paper); }
   }
 
-  /* link buttons (Abs, PDF, arXiv, code, etc.) — MDB renders these as .badge.grey */
+  /* link buttons (arXiv/PDF/Code/Website) rendered as MDB .badge */
   .links a.btn,
   .links a.badge,
   .links .badge,
   a.abbr.badge {
     background-color: transparent !important;
     background-image: none !important;
-    border: 1px solid var(--nous-border) !important;
+    border: 1px solid var(--h-ink) !important;
     border-radius: 0 !important;
-    color: var(--nous-text-muted) !important;
+    color: var(--h-ink) !important;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    font-size: 0.62rem;
-    font-weight: 400 !important;
-    padding: 0.3rem 0.65rem;
+    font-family: $hermes-display;
+    font-size: 0.64rem;
+    font-weight: 500 !important;
+    padding: 0.28rem 0.6rem;
     box-shadow: none !important;
-    transition: all 0.15s ease;
+    transition: all 0.12s ease;
 
     &:hover {
-      background-color: var(--nous-text-strong) !important;
-      color: #000 !important;
-      border-color: var(--nous-text-strong) !important;
+      background-color: var(--h-ink) !important;
+      color: var(--h-paper) !important;
+      border-color: var(--h-ink) !important;
     }
   }
 
-  .bibtex,
-  .hidden {
-    background-color: var(--nous-bg-card);
-  }
-
-  /* abstract / bibtex reveal box */
-  blockquote.abstract,
-  div.abstract,
-  .bibtex pre {
-    background-color: var(--nous-bg-card) !important;
-    border-left: 2px solid var(--nous-border) !important;
-    color: var(--nous-text-muted);
+  blockquote.abstract, div.abstract, .bibtex pre {
+    background-color: var(--h-paper-2) !important;
+    border-left: 2px solid var(--h-ink) !important;
+    color: var(--h-ink-soft);
     font-size: 0.82rem;
   }
 }
 
-/* publication preview thumbnail */
-.preview {
-  border: 1px solid var(--nous-border-soft);
-  border-radius: 0;
-}
+.preview { border: 1px solid var(--h-border); border-radius: 0; }
 
 /* ---------------------------------------------------------------------------
  * Cards (projects, repositories)
  * ------------------------------------------------------------------------- */
 .card {
-  background-color: var(--nous-bg-card) !important;
-  border: 1px solid var(--nous-border-soft) !important;
+  background-color: var(--h-paper-2) !important;
+  border: 1px solid var(--h-border) !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  transition: border-color 0.2s ease;
+  transition: background 0.15s ease;
 
-  &:hover {
-    border-color: var(--nous-border) !important;
-  }
+  &:hover { background-color: var(--h-ink-wash) !important; }
 
-  .card-title,
-  h3 {
-    color: var(--nous-text-strong) !important;
+  .card-title, h3 {
+    font-family: $hermes-display;
+    color: var(--h-ink) !important;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    font-size: 0.95rem;
+    font-size: 0.98rem;
   }
-  .card-text,
-  p {
-    color: var(--nous-text-muted) !important;
-    font-size: 0.82rem;
-  }
+  .card-text, p { color: var(--h-ink-soft) !important; font-size: 0.82rem; }
   img { border-radius: 0; }
 }
 
 /* ---------------------------------------------------------------------------
- * CV (time_table, lists, maps)
+ * CV
  * ------------------------------------------------------------------------- */
 .cv {
-  .card {
-    background: transparent !important;
-    border: 1px solid var(--nous-border-soft) !important;
-  }
+  .card { background: transparent !important; border: 1px solid var(--h-border) !important; }
   .card-body { background: transparent; }
 
-  /* table map (General Information) */
   table.table {
     th, td {
-      border-color: var(--nous-border-soft) !important;
-      color: var(--nous-text);
+      border-color: var(--h-border) !important;
+      color: var(--h-ink);
       background: transparent !important;
     }
   }
-
-  /* time table vertical line + dots */
   .timeline {
-    .line { background-color: var(--nous-border) !important; }
-    .dot,
-    .timeline-item::before { background-color: var(--nous-text-strong) !important; }
+    .line { background-color: var(--h-border) !important; }
+    .dot, .timeline-item::before { background-color: var(--h-ink) !important; }
   }
-  ul li::marker { color: var(--nous-text-faint); }
+  ul li::marker { color: var(--h-ink-faint); }
 }
 
 /* ---------------------------------------------------------------------------
- * Social icons row
+ * Social icons
  * ------------------------------------------------------------------------- */
 .social {
   .contact-icons a {
-    color: var(--nous-text-muted);
+    color: var(--h-ink);
     border-bottom: 0;
-    margin: 0 0.4rem;
-    transition: color 0.15s ease;
-    &:hover { color: var(--nous-text-strong); }
+    margin: 0 0.45rem;
+    transition: opacity 0.12s ease;
+    &:hover { color: var(--h-ink); opacity: 0.6; }
   }
-  .contact-note {
-    @include nous-label;
-    font-size: 0.68rem;
-    color: var(--nous-text-faint);
-  }
+  .contact-note { @include h-label; font-size: 0.68rem; color: var(--h-ink-faint); }
 }
 
 /* ---------------------------------------------------------------------------
- * Misc al-folio overrides for dark coherence
+ * Misc coherence
  * ------------------------------------------------------------------------- */
-.profile .address { color: var(--nous-text-muted); }
+.profile .address { color: var(--h-ink-soft); }
 
-code,
-pre,
-.highlight {
-  background-color: var(--nous-bg-card) !important;
+code, pre, .highlight {
+  background-color: var(--h-paper-3) !important;
   border-radius: 0;
-  font-family: $nous-mono;
+  font-family: $hermes-mono;
+  color: var(--h-ink);
 }
 
 blockquote {
-  background: var(--nous-bg-soft);
-  border-left: 2px solid var(--nous-border);
-  color: var(--nous-text-muted);
+  background: var(--h-paper-2);
+  border-left: 2px solid var(--h-ink);
+  color: var(--h-ink-soft);
 }
 
-/* pagination */
 .pagination {
   .page-item .page-link {
     background-color: transparent;
-    border-color: var(--nous-border-soft);
-    color: var(--nous-text-muted);
+    border-color: var(--h-border);
+    color: var(--h-ink);
     border-radius: 0;
-    &:hover { background-color: var(--nous-bg-soft); color: var(--nous-text-strong); }
+    font-family: $hermes-display;
+    &:hover { background-color: var(--h-ink-wash); }
   }
   .page-item.active .page-link {
-    background-color: var(--nous-text-strong);
-    border-color: var(--nous-text-strong);
-    color: #000;
+    background-color: var(--h-ink);
+    border-color: var(--h-ink);
+    color: var(--h-paper);
   }
 }
 
@@ -623,9 +611,9 @@ blockquote {
  * Responsive
  * ------------------------------------------------------------------------- */
 @media (max-width: 768px) {
-  .nous-about { grid-template-columns: 1fr; }
-  .nous-about-portrait { max-width: 260px; }
-  .nous-grid { grid-template-columns: 1fr; }
-  .nous-links { grid-template-columns: 1fr; }
-  .nous-hero { padding-top: 3rem; }
+  .hermes-about { grid-template-columns: 1fr; }
+  .hermes-about-portrait { max-width: 260px; }
+  .hermes-grid { grid-template-columns: 1fr; }
+  .hermes-links { grid-template-columns: 1fr; }
+  .navbar .navbar-brand { font-size: 1.15rem !important; }
 }

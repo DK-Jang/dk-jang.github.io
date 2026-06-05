@@ -2,31 +2,27 @@
 layout: default
 ---
 
-<!-- about.html : NOUS-style landing -->
-<div class="nous-landing">
+<!-- about.html : HERMES-AGENT-style landing -->
+<div class="hermes-landing">
 
   <!-- ===================== HERO ===================== -->
-  <section class="nous-hero">
-    <div class="nous-hero-meta">
-      <span>RESEARCHER</span>
-      <span>// MOTION CAPTURE</span>
-      <span>// 3D HUMAN MOTION</span>
-    </div>
-    <h1 class="nous-hero-title">
+  <section class="hermes-hero">
+    <span class="hermes-eyebrow">RESEARCHER &middot; 3D HUMAN MOTION</span>
+    <h1 class="hermes-hero-title">
       {% if site.title == "blank" -%}{{ site.first_name }} {{ site.middle_name }} {{ site.last_name }}{%- else -%}{{ site.title }}{%- endif %}
     </h1>
-    <p class="nous-hero-sub">{{ page.subtitle | strip_html }}</p>
+    <p class="hermes-hero-sub">{{ page.subtitle | strip_html }}</p>
   </section>
 
   <!-- ===================== ABOUT ===================== -->
-  <section class="nous-section">
-    <span class="nous-section-label">// ABOUT</span>
-    <div class="nous-about">
-      <div class="nous-about-body">
+  <section class="hermes-section">
+    <span class="hermes-section-label">About</span>
+    <div class="hermes-about">
+      <div class="hermes-about-body">
         {{ content }}
       </div>
       {% if page.profile and page.profile.image -%}
-      <div class="nous-about-portrait">
+      <div class="hermes-about-portrait">
         {%- assign profile_image_path = page.profile.image | prepend: 'assets/img/' -%}
         {% include figure.html path=profile_image_path class="img-fluid" alt=page.profile.image -%}
       </div>
@@ -34,61 +30,58 @@ layout: default
     </div>
   </section>
 
-  <!-- ===================== FOCUS GRID ===================== -->
-  <section class="nous-section">
-    <span class="nous-section-label">// RESEARCH FOCUS</span>
-    <div class="nous-grid">
-      <div class="nous-cell">
-        <span class="nous-cell-idx">01</span>
-        <div class="nous-cell-title">LiDAR Motion Capture</div>
-        <div class="nous-cell-body">Real-time 3D full-body markerless motion capture and tracking from a single LiDAR sensor.</div>
+  <!-- ===================== RESEARCH FOCUS (feature grid) ===================== -->
+  <section class="hermes-section">
+    <span class="hermes-section-label">Research Focus</span>
+    <div class="hermes-grid">
+      <div class="hermes-cell">
+        <div class="hermes-cell-title">LiDAR Motion Capture</div>
+        <div class="hermes-cell-body">Real-time 3D full-body markerless motion capture and tracking from a single LiDAR sensor.</div>
       </div>
-      <div class="nous-cell">
-        <span class="nous-cell-idx">02</span>
-        <div class="nous-cell-title">Motion Stylization</div>
-        <div class="nous-cell-body">Arbitrary motion style transfer and real-time characterization for virtual characters and avatars.</div>
+      <div class="hermes-cell">
+        <div class="hermes-cell-title">Motion Stylization</div>
+        <div class="hermes-cell-body">Arbitrary motion style transfer and real-time characterization for virtual characters and avatars.</div>
       </div>
-      <div class="nous-cell">
-        <span class="nous-cell-idx">03</span>
-        <div class="nous-cell-title">Motion Synthesis</div>
-        <div class="nous-cell-body">Deep generative models for motion manifolds, synthesis and control in graphics and AR/VR systems.</div>
+      <div class="hermes-cell">
+        <div class="hermes-cell-title">Motion Synthesis</div>
+        <div class="hermes-cell-body">Deep generative models for motion manifolds, synthesis and control in graphics and AR/VR systems.</div>
       </div>
     </div>
   </section>
 
   <!-- ===================== NEWS ===================== -->
   {% if page.news and site.announcements.enabled -%}
-  <section class="nous-section news">
-    <span class="nous-section-label">// <a href="{{ '/news/' | relative_url }}" style="color: inherit; border:0;">NEWS</a></span>
+  <section class="hermes-section news">
+    <span class="hermes-section-label"><a href="{{ '/news/' | relative_url }}">News</a></span>
     {%- include news.html limit=true %}
   </section>
   {%- endif %}
 
   <!-- ===================== SELECTED PAPERS ===================== -->
   {% if page.selected_papers -%}
-  <section class="nous-section">
-    <span class="nous-section-label">// <a href="{{ '/publications/' | relative_url }}" style="color: inherit; border:0;">SELECTED PUBLICATIONS</a></span>
+  <section class="hermes-section">
+    <span class="hermes-section-label"><a href="{{ '/publications/' | relative_url }}">Selected Publications</a></span>
     {%- include selected_papers.html %}
   </section>
   {%- endif %}
 
-  <!-- ===================== NODES / LINKS ===================== -->
-  <section class="nous-section">
-    <span class="nous-section-label">// NODES</span>
-    <div class="nous-links">
-      <a class="nous-link-row" href="{{ '/publications/' | relative_url }}"><span class="arrow">&rarr;</span> PUBLICATIONS</a>
-      <a class="nous-link-row" href="{{ '/cv/' | relative_url }}"><span class="arrow">&rarr;</span> CURRICULUM VITAE</a>
-      <a class="nous-link-row" href="https://github.com/{{ site.github_username }}"><span class="arrow">&rarr;</span> GITHUB</a>
-      <a class="nous-link-row" href="https://www.linkedin.com/in/{{ site.linkedin_username }}"><span class="arrow">&rarr;</span> LINKEDIN</a>
-      <a class="nous-link-row" href="https://www.movin3d.com"><span class="arrow">&rarr;</span> MOVIN</a>
-      <a class="nous-link-row" href="mailto:{{ site.email }}"><span class="arrow">&rarr;</span> EMAIL</a>
+  <!-- ===================== LINKS / NODES ===================== -->
+  <section class="hermes-section">
+    <span class="hermes-section-label">Links</span>
+    <div class="hermes-links">
+      <a class="hermes-link-row" href="{{ '/publications/' | relative_url }}"><span class="arrow">&rarr;</span> Publications</a>
+      <a class="hermes-link-row" href="{{ '/cv/' | relative_url }}"><span class="arrow">&rarr;</span> Curriculum Vitae</a>
+      <a class="hermes-link-row" href="https://github.com/{{ site.github_username }}"><span class="arrow">&rarr;</span> GitHub</a>
+      <a class="hermes-link-row" href="https://www.linkedin.com/in/{{ site.linkedin_username }}"><span class="arrow">&rarr;</span> LinkedIn</a>
+      <a class="hermes-link-row" href="https://www.movin3d.com"><span class="arrow">&rarr;</span> MOVIN</a>
+      <a class="hermes-link-row" href="mailto:{{ site.email }}"><span class="arrow">&rarr;</span> Email</a>
     </div>
   </section>
 
   <!-- ===================== SOCIAL ===================== -->
   {%- if page.social %}
-  <section class="nous-section social" style="border-bottom:0;">
-    <span class="nous-section-label">// CONNECT</span>
+  <section class="hermes-section social" style="border-bottom:0;">
+    <span class="hermes-section-label">Connect</span>
     <div class="contact-icons">
       {% include social.html %}
     </div>
