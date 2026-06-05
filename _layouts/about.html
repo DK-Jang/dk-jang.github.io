@@ -2,75 +2,97 @@
 layout: default
 ---
 
-<!-- about.html -->
-      <div class="post">
-        <header class="post-header">
-          <h1 class="post-title">
-           {% if site.title == "blank" -%}<span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }} {{ site.last_name }}{%- else -%}{{ site.title }}{%- endif %}
-          </h1>
-          <p class="desc">{{ page.subtitle }}</p>
-        </header>
+<!-- about.html : NOUS-style landing -->
+<div class="nous-landing">
 
-        <article>
-          {% if page.profile -%}
-          <div class="profile float-{%- if page.profile.align == 'left' -%}left{%- else -%}right{%- endif -%}">
-            {%- if page.profile.image %}
-              {%- assign profile_image_path = page.profile.image | prepend: 'assets/img/' -%}
+  <!-- ===================== HERO ===================== -->
+  <section class="nous-hero">
+    <div class="nous-hero-meta">
+      <span>RESEARCHER</span>
+      <span>// MOTION CAPTURE</span>
+      <span>// 3D HUMAN MOTION</span>
+    </div>
+    <h1 class="nous-hero-title">
+      {% if site.title == "blank" -%}{{ site.first_name }} {{ site.middle_name }} {{ site.last_name }}{%- else -%}{{ site.title }}{%- endif %}
+    </h1>
+    <p class="nous-hero-sub">{{ page.subtitle | strip_html }}</p>
+  </section>
 
-              {% if page.profile.image_circular %}
-                {%- assign profile_image_class = "img-fluid z-depth-1 rounded-circle" -%}
-              {% else %}
-                {%- assign profile_image_class = "img-fluid z-depth-1 rounded" -%}
-              {% endif %}
+  <!-- ===================== ABOUT ===================== -->
+  <section class="nous-section">
+    <span class="nous-section-label">// ABOUT</span>
+    <div class="nous-about">
+      <div class="nous-about-body">
+        {{ content }}
+      </div>
+      {% if page.profile and page.profile.image -%}
+      <div class="nous-about-portrait">
+        {%- assign profile_image_path = page.profile.image | prepend: 'assets/img/' -%}
+        {% include figure.html path=profile_image_path class="img-fluid" alt=page.profile.image -%}
+      </div>
+      {%- endif %}
+    </div>
+  </section>
 
-              {% include figure.html
-              path=profile_image_path
-              class=profile_image_class
-              alt=page.profile.image -%}
-            {% endif -%}
-            {%- if page.profile.address %}
-            <div class="address">
-              {{ page.profile.address }}
-            </div>
-            {%- endif %}
-          </div>
-          {%- endif %}
+  <!-- ===================== FOCUS GRID ===================== -->
+  <section class="nous-section">
+    <span class="nous-section-label">// RESEARCH FOCUS</span>
+    <div class="nous-grid">
+      <div class="nous-cell">
+        <span class="nous-cell-idx">01</span>
+        <div class="nous-cell-title">LiDAR Motion Capture</div>
+        <div class="nous-cell-body">Real-time 3D full-body markerless motion capture and tracking from a single LiDAR sensor.</div>
+      </div>
+      <div class="nous-cell">
+        <span class="nous-cell-idx">02</span>
+        <div class="nous-cell-title">Motion Stylization</div>
+        <div class="nous-cell-body">Arbitrary motion style transfer and real-time characterization for virtual characters and avatars.</div>
+      </div>
+      <div class="nous-cell">
+        <span class="nous-cell-idx">03</span>
+        <div class="nous-cell-title">Motion Synthesis</div>
+        <div class="nous-cell-body">Deep generative models for motion manifolds, synthesis and control in graphics and AR/VR systems.</div>
+      </div>
+    </div>
+  </section>
 
-          <div class="clearfix">
-            {{ content }}
-          </div>
+  <!-- ===================== NEWS ===================== -->
+  {% if page.news and site.announcements.enabled -%}
+  <section class="nous-section news">
+    <span class="nous-section-label">// <a href="{{ '/news/' | relative_url }}" style="color: inherit; border:0;">NEWS</a></span>
+    {%- include news.html limit=true %}
+  </section>
+  {%- endif %}
 
-          <!-- News -->
-          {% if page.news and site.announcements.enabled -%}
-            <h2><a href="{{ '/news/' | relative_url }}" style="color: inherit;">news</a></h2>
-            {%- include news.html limit=true %}
-          {%- endif %}
+  <!-- ===================== SELECTED PAPERS ===================== -->
+  {% if page.selected_papers -%}
+  <section class="nous-section">
+    <span class="nous-section-label">// <a href="{{ '/publications/' | relative_url }}" style="color: inherit; border:0;">SELECTED PUBLICATIONS</a></span>
+    {%- include selected_papers.html %}
+  </section>
+  {%- endif %}
 
-          <!-- Latest posts -->
-          {% if page.latest_posts -%}
-            <h2><a href="{{ '/blog/' | relative_url }}" style="color: inherit;">latest posts</a></h2>
-            {%- include latest_posts.html %}
-          {%- endif %}
+  <!-- ===================== NODES / LINKS ===================== -->
+  <section class="nous-section">
+    <span class="nous-section-label">// NODES</span>
+    <div class="nous-links">
+      <a class="nous-link-row" href="{{ '/publications/' | relative_url }}"><span class="arrow">&rarr;</span> PUBLICATIONS</a>
+      <a class="nous-link-row" href="{{ '/cv/' | relative_url }}"><span class="arrow">&rarr;</span> CURRICULUM VITAE</a>
+      <a class="nous-link-row" href="https://github.com/{{ site.github_username }}"><span class="arrow">&rarr;</span> GITHUB</a>
+      <a class="nous-link-row" href="https://www.linkedin.com/in/{{ site.linkedin_username }}"><span class="arrow">&rarr;</span> LINKEDIN</a>
+      <a class="nous-link-row" href="https://www.movin3d.com"><span class="arrow">&rarr;</span> MOVIN</a>
+      <a class="nous-link-row" href="mailto:{{ site.email }}"><span class="arrow">&rarr;</span> EMAIL</a>
+    </div>
+  </section>
 
-          <!-- Selected papers -->
-          {% if page.selected_papers -%}
-            <h2><a href="{{ '/publications/' | relative_url }}" style="color: inherit;">selected publications</a></h2>
-            {%- include selected_papers.html %}
-          {%- endif %}
-
-          <!-- Social -->
-          {%- if page.social %}
-            <div class="social">
-              <div class="contact-icons">
-                {% include social.html %}
-              </div>
-
-              <div class="contact-note">
-                {{ site.contact_note }}
-              </div>
-
-            </div>
-          {%- endif %}
-        </article>
+  <!-- ===================== SOCIAL ===================== -->
+  {%- if page.social %}
+  <section class="nous-section social" style="border-bottom:0;">
+    <span class="nous-section-label">// CONNECT</span>
+    <div class="contact-icons">
+      {% include social.html %}
+    </div>
+  </section>
+  {%- endif %}
 
 </div>
