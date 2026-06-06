@@ -85,7 +85,9 @@
 
   function initScramble() {
     if (REDUCED) return;
-    var links = document.querySelectorAll('.navbar .nav-link');
+    var links = document.querySelectorAll(
+      '.navbar .nav-link, .hermes-link-row'
+    );
     for (var i = 0; i < links.length; i++) {
       var link = links[i];
       if (link.getAttribute('data-scramble') === 'on') continue;
