@@ -1080,6 +1080,8 @@ d-appendix a:hover, d-appendix a.footnote-backlink:hover {
   --h-text-faint: #5c5c5c;
   --h-accent: #edff45; /* acid-yellow accent (Hermes) */
   --h-wash: rgba(255, 255, 255, 0.04); /* hover wash */
+  /* dithered (checkerboard) pixel texture used for hover cursors/overlays */
+  --h-dither: repeating-conic-gradient(var(--h-accent) 0% 25%, transparent 0% 50%);
   /* container gutter line offset so the outer frame lines up */
   --h-maxw: 1100px;
   /* Re-map al-folio globals */
@@ -1234,16 +1236,34 @@ img, figure img {
   align-items: center;
   padding: 0 1.25rem !important;
   transition: background 0.12s ease, color 0.12s ease;
+  /* Hermes-style blinking dither block cursor, appended on hover */
+}
+.navbar .nav-item .nav-link::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 1.05em;
+  margin-left: 0;
+  background-image: var(--h-dither);
+  background-size: 3px 3px;
+  opacity: 0;
+  transition: width 0.08s steps(2), margin-left 0.08s steps(2);
 }
 .navbar .nav-item .nav-link:hover {
   background: var(--h-wash);
   color: var(--h-text-strong) !important;
 }
+.navbar .nav-item .nav-link:hover::after {
+  width: 0.55ch;
+  margin-left: 0.5ch;
+  opacity: 1;
+  animation: h-blink 1s steps(1) infinite;
+}
 .navbar .nav-item.active .nav-link {
   background: var(--h-wash);
   color: var(--h-text-strong) !important;
 }
-.navbar .nav-item .nav-link::before, .navbar .nav-item .nav-link::after {
+.navbar .nav-item .nav-link::before {
   display: none !important;
 }
 .navbar .toggle-container {
@@ -1416,16 +1436,101 @@ footer.sticky-bottom a:hover {
 .hermes-about .hermes-about-body a:hover {
   border-bottom-color: var(--h-text-strong);
 }
-.hermes-about .hermes-about-portrait img {
-  width: 100%;
+.hermes-about .hermes-about-portrait {
+  position: relative;
+  overflow: hidden;
   border: 1px solid var(--h-border);
+  cursor: crosshair;
+}
+.hermes-about .hermes-about-portrait img {
+  display: block;
+  width: 100%;
+  border: 0;
   border-radius: 0;
   filter: grayscale(0.2) contrast(1.02);
+  transition: filter 0.25s ease, transform 0.4s ease;
+}
+.hermes-about .hermes-about-portrait {
+  /* dither pixel overlay that fades in on hover (mirrors the Hermes
+     hero-image hover treatment) */
+}
+.hermes-about .hermes-about-portrait::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-image: var(--h-dither);
+  background-size: 4px 4px;
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.hermes-about .hermes-about-portrait {
+  /* scanline sweep accent */
+}
+.hermes-about .hermes-about-portrait::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  z-index: 3;
+  background: var(--h-accent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+.hermes-about .hermes-about-portrait:hover img {
+  filter: grayscale(1) brightness(1.1) contrast(1.15) sepia(1) hue-rotate(155deg) saturate(5);
+  transform: scale(1.03);
+}
+.hermes-about .hermes-about-portrait:hover::before {
+  opacity: 0.55;
+  animation: h-dither-flicker 0.5s steps(2) infinite;
+}
+.hermes-about .hermes-about-portrait:hover::after {
+  opacity: 0.9;
+  animation: h-scan 1.6s linear infinite;
 }
 .hermes-about .hermes-about-portrait figcaption {
   display: none;
 }
 
+/* ---------------------------------------------------------------------------
+ * Hover-effect keyframes (Hermes-style dither / blink / scan)
+ * ------------------------------------------------------------------------- */
+@keyframes h-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  50.01%, 100% {
+    opacity: 0;
+  }
+}
+@keyframes h-dither-flicker {
+  0% {
+    background-position: 0 0;
+    opacity: 0.55;
+  }
+  50% {
+    background-position: 2px 1px;
+    opacity: 0.35;
+  }
+  100% {
+    background-position: 1px 2px;
+    opacity: 0.55;
+  }
+}
+@keyframes h-scan {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(220px);
+  }
+}
 /* FEATURE GRID: 3 cols on desktop, divided by thin lines */
 .hermes-grid {
   display: grid;
