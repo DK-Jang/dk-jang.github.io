@@ -276,6 +276,7 @@ footer.sticky-bottom {
 .hermes-section {
   padding: clamp(1.75rem, 5vw, 2.75rem) clamp(1.1rem, 4vw, 1.75rem);
   border-bottom: 1px solid var(--h-border);
+  &:last-child { border-bottom: 0; }
 
   .hermes-section-label {
     font-family: $h-display;
@@ -462,6 +463,8 @@ footer.sticky-bottom {
     font-size: 0.82rem;
     font-weight: 500;
     color: var(--h-text);
+    i { font-size: 1.2em; color: inherit; }
+    .icon-scramble { font-size: 1.2em; color: inherit; }
     .arrow { color: var(--h-accent); display: inline-block; transition: transform 0.12s ease; }
     &:hover { background: var(--h-wash); color: var(--h-text-strong); .arrow { transform: translateX(3px); } }
   }

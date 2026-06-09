@@ -72,23 +72,11 @@ layout: default
   <section class="hermes-section">
     <span class="hermes-section-label">Links</span>
     <div class="hermes-links">
-      <a class="hermes-link-row" href="{{ '/publications/' | relative_url }}"><span class="arrow">&rarr;</span> Publications</a>
-      <a class="hermes-link-row" href="{{ '/cv/' | relative_url }}"><span class="arrow">&rarr;</span> Curriculum Vitae</a>
-      <a class="hermes-link-row" href="https://github.com/{{ site.github_username }}"><span class="arrow">&rarr;</span> GitHub</a>
-      <a class="hermes-link-row" href="https://www.linkedin.com/in/{{ site.linkedin_username }}"><span class="arrow">&rarr;</span> LinkedIn</a>
-      <a class="hermes-link-row" href="https://www.movin3d.com"><span class="arrow">&rarr;</span> MOVIN</a>
-      <a class="hermes-link-row" href="mailto:{{ site.email }}"><span class="arrow">&rarr;</span> Email</a>
+      <a class="hermes-link-row" href="https://github.com/{{ site.github_username }}"><span class="arrow">&rarr;</span> GitHub <i class="fab fa-github"></i></a>
+      <a class="hermes-link-row" href="https://www.linkedin.com/in/{{ site.linkedin_username }}"><span class="arrow">&rarr;</span> LinkedIn <i class="fab fa-linkedin"></i></a>
+      <a class="hermes-link-row" href="mailto:{{ site.email }}"><span class="arrow">&rarr;</span> Email <i class="fas fa-envelope"></i></a>
+      <a class="hermes-link-row" href="https://www.movin3d.com"><span class="arrow">&rarr;</span> MOVIN Webpage <i class="fas fa-globe"></i></a>
     </div>
   </section>
-
-  <!-- ===================== SOCIAL ===================== -->
-  {%- if page.social %}
-  <section class="hermes-section social" style="border-bottom:0;">
-    <span class="hermes-section-label">Connect</span>
-    <div class="contact-icons">
-      {% include social.html %}
-    </div>
-  </section>
-  {%- endif %}
 
 </div>

@@ -33,13 +33,55 @@
     var raf = null;
     var pulses = [];
 
+    // Optional icon flicker: while a pulse is alive the FA icon is hidden
+    // and a stand-in span cycles glyphs from the same dither charset, then
+    // the real icon is restored — mirroring the label scramble.
+    var icon = opts.icon || null;
+    var iconStandin = null;
+    if (icon) {
+      iconStandin = document.createElement('span');
+      iconStandin.className = 'icon-scramble';
+      iconStandin.style.pointerEvents = 'none';
+      iconStandin.style.display = 'none';
+      icon.parentNode.insertBefore(iconStandin, icon.nextSibling);
+    }
+
     function frame() {
       var now = Date.now();
       pulses = pulses.filter(function (p) { return now - p.time < dur; });
       if (!pulses.length) {
         textEl.textContent = text;
+        if (icon) {
+          icon.style.display = '';
+          iconStandin.style.display = 'none';
+        }
         raf = null;
         return;
+      }
+      if (icon) {
+        if (icon.style.display !== 'none') {
+          iconStandin.style.width = icon.offsetWidth + 'px';
+          iconStandin.style.textAlign = 'center';
+          icon.style.display = 'none';
+          iconStandin.style.display = 'inline-block';
+        }
+        // The icon scrambles like an extra label character: while the
+        // pulse wave covers it the glyph flickers through the dither
+        // charset, then settles on the label's first letter (e.g. "G").
+        var iconGlyph = text.trim().charAt(0).toUpperCase();
+        for (var ik = 0; ik < pulses.length; ik++) {
+          var ip = pulses[ik];
+          var ii = now - ip.time;
+          var io = Math.min(ii / dur, 1) *
+            (Math.max(ip.pos, len - ip.pos - 1) + 5) / spread;
+          var ic = Math.abs(len - ip.pos);
+          var id = io - ic;
+          if (ic <= io && id > 0 && id <= 3) {
+            iconGlyph = CHARSET.charAt((3 * ic + ((ii / 40) | 0)) % CHARSET.length);
+            break;
+          }
+        }
+        iconStandin.textContent = iconGlyph;
       }
       var out = '';
       for (var idx = 0; idx < len; idx++) {
@@ -107,7 +149,9 @@
       span.textContent = textNode.textContent.trim();
       link.replaceChild(span, textNode);
       link.setAttribute('data-scramble', 'on');
-      attachScramble(link, span);
+      // Link-row icons flicker in sync with the label scramble.
+      var icon = link.querySelector('i');
+      attachScramble(link, span, icon ? { icon: icon } : undefined);
     }
   }
 
