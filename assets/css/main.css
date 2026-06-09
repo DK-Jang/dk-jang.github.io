@@ -1400,6 +1400,9 @@ footer.sticky-bottom a:hover {
   padding: clamp(1.75rem, 5vw, 2.75rem) clamp(1.1rem, 4vw, 1.75rem);
   border-bottom: 1px solid var(--h-border);
 }
+.hermes-section:last-child {
+  border-bottom: 0;
+}
 .hermes-section .hermes-section-label {
   font-family: "Oswald", "Geist Mono", sans-serif;
   text-transform: uppercase;
@@ -1625,6 +1628,14 @@ footer.sticky-bottom a:hover {
   font-size: 0.82rem;
   font-weight: 500;
   color: var(--h-text);
+}
+.hermes-links .hermes-link-row i {
+  font-size: 1.2em;
+  color: inherit;
+}
+.hermes-links .hermes-link-row .icon-scramble {
+  font-size: 1.2em;
+  color: inherit;
 }
 .hermes-links .hermes-link-row .arrow {
   color: var(--h-accent);
